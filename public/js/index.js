@@ -7,8 +7,11 @@ socket.on('disconnect', function () {
     console.log('disconnected from server')
 });
 
-socket.on('newEmail', function (mail) {
-    console.log(mail)
+socket.on('helloNew', function (mes) {
+    console.log(mes)
+});
+socket.on('welcomeNew', function (mes) {
+    console.log(mes)
 });
 
 socket.on('newMessage', function (message) {

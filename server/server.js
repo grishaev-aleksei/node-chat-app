@@ -18,14 +18,32 @@ io.on('connection', (socket) => {
         console.log('user disconnected')
     });
 
+    socket.emit('helloNew', {
+        from: 'admin',
+        text: 'Welcome to the chat app',
+        createdAt: new Date().getTime()
+    });
+
+    socket.broadcast.emit('welcomeNew', {
+        from: 'admin',
+        text: 'New user joined',
+        createdAt: new Date().getTime()
+    });
+
 
     socket.on('createMessage', function (message) {
        console.log('message from frontend', message);
-        io.emit('newMessage', {
+        // io.emit('newMessage', {
+        //     from: message.from,
+        //     text: message.text,
+        //     createdAt: new Date().getTime()
+        // })
+        socket.broadcast.emit('newMessage', {
             from: message.from,
             text: message.text,
             createdAt: new Date().getTime()
         })
+
     })
 });
 
