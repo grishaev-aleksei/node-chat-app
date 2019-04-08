@@ -17,3 +17,10 @@ socket.on('newOneJoinedAlert', function (mes) {
 socket.on('newMessage', function (message) {
     console.log('new message from server is ', message)
 });
+
+socket.emit('createMessage', {
+    from: 'Frank',
+    text: 'Hi'
+}, (res) => {
+    console.log('got it', res)
+});

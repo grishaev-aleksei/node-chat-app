@@ -24,10 +24,11 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('newOneJoinedAlert', generateMessage('Admin', 'New user joined'));
 
 
-    socket.on('createMessage', function (message) {
+    socket.on('createMessage', function (message, callback) {
        console.log('message from frontend', message);
 
-        socket.broadcast.emit('newMessage', generateMessage(message.from, message.text))
+        socket.emit('newMessage', generateMessage(message.from, message.text));
+        callback('This is from the server');
 
     })
 });
