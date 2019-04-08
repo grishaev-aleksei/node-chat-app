@@ -10,7 +10,7 @@ socket.on('disconnect', function () {
 socket.on('helloNew', function (mes) {
     console.log(mes)
 });
-socket.on('welcomeNew', function (mes) {
+socket.on('newOneJoinedAlert', function (mes) {
     console.log(mes)
 });
 
