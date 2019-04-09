@@ -19,15 +19,15 @@ io.on('connection', (socket) => {
         console.log('user disconnected')
     });
 
-    socket.emit('helloNew', generateMessage('Admin', 'welcome to the chat app'));
+    socket.emit('newMessage', generateMessage('Admin', 'welcome to the chat app'));
 
-    socket.broadcast.emit('newOneJoinedAlert', generateMessage('Admin', 'New user joined'));
+    socket.broadcast.emit('newMessage', generateMessage('Admin', 'New user joined'));
 
 
     socket.on('createMessage', function (message, callback) {
        console.log('message from frontend', message);
 
-        socket.emit('newMessage', generateMessage(message.from, message.text));
+        io.emit('newMessage', generateMessage(message.from, message.text));
         callback('This is from the server');
 
     })

@@ -7,20 +7,22 @@ socket.on('disconnect', function () {
     console.log('disconnected from server')
 });
 
-socket.on('helloNew', function (mes) {
-    console.log(mes)
-});
-socket.on('newOneJoinedAlert', function (mes) {
-    console.log(mes)
-});
 
 socket.on('newMessage', function (message) {
-    console.log('new message from server is ', message)
+    console.log('new message from server is ', message);
+    const li = jQuery('<li></li>');
+    li.text(`${message.from}: ${message.text}`);
+
+    jQuery('#messages').append(li)
 });
 
-socket.emit('createMessage', {
-    from: 'Frank',
-    text: 'Hi'
-}, (res) => {
-    console.log('got it', res)
+
+jQuery('#message-form').on('submit', function (e) {
+    e.preventDefault();
+    socket.emit('createMessage', {
+        from: 'User',
+        text: jQuery('[name=message]').val()
+    }, function () {
+
+    })
 });
