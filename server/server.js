@@ -8,12 +8,23 @@ const server = http.createServer(app);
 const port = process.env.PORT || 3000;
 const io = socketIO(server);
 const {generateMessage, generateLocationMessage} = require('./utils/message');
+const {isRealString} = require('./utils/validation');
 
 const publicPath = path.join(__dirname, '../public');
 
 app.use(express.static(publicPath));
 
 io.on('connection', (socket) => {
+    
+    socket.on('join', function (params, callback) {
+        if (!isRealString(params.name) || !isRealString(params.room)) {
+            callback('name and room name are required')
+        }
+        callback()
+
+    });
+
+
     console.log('new user connected');
     socket.on('disconnect',()=>{
         console.log('user disconnected')
