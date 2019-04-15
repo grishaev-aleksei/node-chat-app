@@ -20,6 +20,10 @@ io.on('connection', (socket) => {
         if (!isRealString(params.name) || !isRealString(params.room)) {
             callback('name and room name are required')
         }
+        socket.join(params.room);
+        socket.emit('newMessage', generateMessage('Admin', `Hello ${params.name}, welcome to ${params.room}`));
+
+        socket.broadcast.to(params.room).emit('newMessage', generateMessage('Admin', `${params.name} has joined`));
         callback()
 
     });
@@ -30,9 +34,7 @@ io.on('connection', (socket) => {
         console.log('user disconnected')
     });
 
-    socket.emit('newMessage', generateMessage('Admin', 'welcome to the chat app'));
 
-    socket.broadcast.emit('newMessage', generateMessage('Admin', 'New user joined'));
 
 
     socket.on('createMessage', function (message, callback) {
