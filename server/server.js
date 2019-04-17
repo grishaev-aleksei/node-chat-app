@@ -15,6 +15,9 @@ const publicPath = path.join(__dirname, '../public');
 
 const users = new Users();
 
+//todo unique names
+//todo dropdown with currently active chat rooms
+
 app.use(express.static(publicPath));
 
 io.on('connection', (socket) => {
