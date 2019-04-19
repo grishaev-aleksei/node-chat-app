@@ -15,12 +15,18 @@ const publicPath = path.join(__dirname, '../public');
 
 const users = new Users();
 
-//todo unique names
 //todo dropdown with currently active chat rooms
 
 app.use(express.static(publicPath));
 
 io.on('connection', (socket) => {
+
+    socket.on('getUsersList', (res, callback) => {
+        console.log('getUsersList',res);
+        const user = users.getUserList(res.room);
+        console.log('usersmap', user);
+        callback(user)
+    });
 
     socket.on('join', function (params, callback) {
         if (!isRealString(params.name) || !isRealString(params.room)) {
