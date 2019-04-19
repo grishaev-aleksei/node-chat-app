@@ -40,6 +40,12 @@ class Users {
         return users.map((user) => user.name);
     }
 
+    getRoomList() {
+        let array = this.users;
+        return array.map(item => item.room)
+            .filter((value, index, self) => self.indexOf(value) === index);
+    }
+
 
 }
 

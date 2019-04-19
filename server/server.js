@@ -22,10 +22,11 @@ app.use(express.static(publicPath));
 io.on('connection', (socket) => {
 
     socket.on('getUsersList', (res, callback) => {
-        console.log('getUsersList',res);
-        const user = users.getUserList(res.room);
-        console.log('usersmap', user);
-        callback(user)
+        callback(users.getUserList(res.room))
+    });
+
+    socket.on('getRoomList', (res, callback) => {
+        callback(users.getRoomList());
     });
 
     socket.on('join', function (params, callback) {
